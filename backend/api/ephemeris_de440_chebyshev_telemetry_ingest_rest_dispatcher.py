@@ -181,4 +181,5 @@ class BarycentricPerturbationPrimaryEquilibriumSolverM11:
             0.92 * self.state_vector.integrated_lyapunov_energy + 0.08 * mahalanobis_d2, 8
         )
         self._transition_operational_regime(mahalanobis_dist, frame.redundant_channel_ok)
+        self._audit_counter += 1
         
