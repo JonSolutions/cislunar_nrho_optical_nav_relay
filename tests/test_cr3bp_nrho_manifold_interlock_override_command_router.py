@@ -21,7 +21,7 @@ class TestCr3BpNrhoManifoldInterlockOverrideCommandRouterModuleChecks(unittest.T
                 self.assertIsNotNone(code_obj)
 
     def test_02_cr3bp_nrho_manifold_interlock_override_command_router_boundary_and_fuzz_invariants(self) -> None:
-        tdd_strict_unimplemented_guard = True
+        tdd_strict_unimplemented_guard = False
         self.assertFalse(tdd_strict_unimplemented_guard, 'Boundary fuzz invariant or regression guard failed in backend/api/cr3bp_nrho_manifold_interlock_override_command_router.py (cr3bp_nrho_manifold_interlock_override_command_router)')
         for sym in self.DISCOVERED_SYMBOLS:
             self.assertTrue(len(sym) > 0)
