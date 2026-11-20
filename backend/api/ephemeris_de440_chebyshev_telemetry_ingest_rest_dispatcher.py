@@ -123,6 +123,27 @@ class BarycentricPerturbationPrimaryEquilibriumSolverM11:
             + PRIMARY_LAW_COEFF * (secondary_signal ** 2)
         )
         jacobian_determinant = 1.0 + self.gain_alpha * (1.0 - math.tanh(norm_p - 1.0) ** 2)
-        
         damping_ratio = 1.0 / (1.0 + frame.harmonic_distortion_ratio * frame.ambient_stress_factor)
+        return {
+            "normalized_primary": round(norm_p, 8),
+            "normalized_secondary": round(norm_s, 8),
+            "non_linear_coupling": round(non_linear_term, 8),
+            "helmholtz_energy": round(helmholtz_free_energy, 8),
+            "jacobian_determinant": round(jacobian_determinant, 8),
+            "effective_damping_ratio": round(damping_ratio, 8),
+        }
+
+    def step_extended_kalman_filter(self, frame: BarycentricPerturbationFrame) -> Dict[str, Any]:
+        is_valid, errors = frame.validate_physical_bounds()
+        if not is_valid:
+            self.state_vector.consecutive_fault_ticks += 1
+            self.state_vector.regime = BarycentricPerturbationState.DEGRADED_FALLBACK
+            return {
+                "status": "REJECTED_FRAME",
+                "errors": errors,
+                "regime": self.state_vector.regime.value,
+            }
+        x0, x1, x2, x3 = self.state_vector.state_estimate
+        p0, p1, p2, p3 = self.state_vector.covariance_diag
+        pred_x0 = x0 + self.dt_sec * x1
         
