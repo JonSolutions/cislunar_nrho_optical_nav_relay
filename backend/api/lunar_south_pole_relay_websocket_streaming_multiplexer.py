@@ -84,4 +84,34 @@ class ShackletonRimGroundLinkKalmanStateVector:
 
     def covariance_trace(self) -> float:
         return float(sum(max(c, 1e-12) for c in self.covariance_diag))
-    
+
+    def spectral_condition_proxy(self) -> float:
+        clean = [max(c, 1e-12) for c in self.covariance_diag]
+        return float(max(clean) / min(clean))
+
+class ShackletonRimGroundLinkPrimaryEquilibriumSolverM12:
+    """
+    Production solver for ShackletonRimGroundLink (PrimaryEquilibriumSolver).
+    Enforces PointAheadAberrationAngle (coeff=4.2500e-05)
+    """
+
+    def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
+        self.node_id: str = node_id
+        self.dt_sec: float = max(dt_sec, 1e-5)
+        self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
+        self.reference_setpoint: float = 14.200000
+        self.tolerance_band: float = 0.001400
+        self.state_vector = ShackletonRimGroundLinkKalmanStateVector(
+            epoch_ms=int(time.time() * 1000),
+            state_estimate=[14.200000, 0.0, 2.130000, 1.0],
+            covariance_diag=[0.001400, 0.000700, 0.001120, 0.01],
+        )
+        
+        self._telemetry_window: List[float] = []
+        self._residual_window: List[float] = []
+        self._audit_counter: int = 0
+
+    def evaluate_governing_law(self, frame: ShackletonRimGroundLinkFrame) -> Dict[str, float]:
+        primary_signal = float(frame.elevation_mask_deg)
+        secondary_signal = float(frame.multipath_fade_db)
+        

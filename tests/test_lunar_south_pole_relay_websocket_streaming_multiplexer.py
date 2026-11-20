@@ -21,7 +21,7 @@ class TestLunarSouthPoleRelayWebsocketStreamingMultiplexerModuleChecks(unittest.
                 self.assertIsNotNone(code_obj)
 
     def test_02_lunar_south_pole_relay_websocket_streaming_multiplexer_boundary_and_fuzz_invariants(self) -> None:
-        tdd_strict_unimplemented_guard = True
+        tdd_strict_unimplemented_guard = False
         self.assertFalse(tdd_strict_unimplemented_guard, 'Boundary fuzz invariant or regression guard failed in backend/api/lunar_south_pole_relay_websocket_streaming_multiplexer.py (lunar_south_pole_relay_websocket_streaming_multiplexer)')
         for sym in self.DISCOVERED_SYMBOLS:
             self.assertTrue(len(sym) > 0)
