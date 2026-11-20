@@ -70,4 +70,8 @@ class BarycentricPerturbationFrame:
         delta_b = abs(self.lunar_limb_pixel_err - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
         weighted = 0.62 * delta_a + 0.38 * delta_b
         return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
+
+
+@dataclass
+class BarycentricPerturbationKalmanStateVector:
     

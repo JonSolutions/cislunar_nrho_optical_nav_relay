@@ -21,7 +21,7 @@ class TestEphemerisDe440ChebyshevTelemetryIngestRestDispatcherModuleChecks(unitt
                 self.assertIsNotNone(code_obj)
 
     def test_02_ephemeris_de440_chebyshev_telemetry_ingest_rest_dispatcher_boundary_and_fuzz_invariants(self) -> None:
-        tdd_strict_unimplemented_guard = True
+        tdd_strict_unimplemented_guard = False
         self.assertFalse(tdd_strict_unimplemented_guard, 'Boundary fuzz invariant or regression guard failed in backend/api/ephemeris_de440_chebyshev_telemetry_ingest_rest_dispatcher.py (ephemeris_de440_chebyshev_telemetry_ingest_rest_dispatcher)')
         for sym in self.DISCOVERED_SYMBOLS:
             self.assertTrue(len(sym) > 0)
