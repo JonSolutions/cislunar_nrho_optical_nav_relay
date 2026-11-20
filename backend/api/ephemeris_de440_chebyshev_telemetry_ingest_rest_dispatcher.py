@@ -89,3 +89,40 @@ class BarycentricPerturbationKalmanStateVector:
         clean = [max(c, 1e-12) for c in self.covariance_diag]
         return float(max(clean) / min(clean))
 
+class BarycentricPerturbationPrimaryEquilibriumSolverM11:
+    """
+    Production solver for BarycentricPerturbation (PrimaryEquilibriumSolver).
+    Enforces StateTransitionVariational (coeff=1.0000e+00)
+    """
+
+    def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
+        self.node_id: str = node_id
+        self.dt_sec: float = max(dt_sec, 1e-5)
+        self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
+        self.reference_setpoint: float = 0.012150
+        self.tolerance_band: float = 0.000100
+        self.state_vector = BarycentricPerturbationKalmanStateVector(
+            epoch_ms=int(time.time() * 1000),
+            state_estimate=[0.012150, 0.0, 0.001822, 1.0],
+            covariance_diag=[0.000100, 0.000050, 0.000080, 0.01],
+        )
+        self._telemetry_window: List[float] = []
+        self._residual_window: List[float] = []
+        self._audit_counter: int = 0
+
+    def evaluate_governing_law(self, frame: BarycentricPerturbationFrame) -> Dict[str, float]:
+        primary_signal = float(frame.earth_moon_mu_ratio)
+        secondary_signal = float(frame.solar_tidal_accel_m_s2)
+        coupled_signal = float(frame.lunar_limb_pixel_err)
+        norm_p = primary_signal / max(abs(self.reference_setpoint), 1e-9)
+        norm_s = secondary_signal / max(abs(self.reference_setpoint * 0.25 + 1.0), 1e-9)
+        non_linear_term = math.tanh(norm_p - 1.0) * math.exp(-0.15 * abs(norm_s))
+        helmholtz_free_energy = (
+            0.5 * (primary_signal - self.reference_setpoint) ** 2
+            + 0.18 * coupled_signal * non_linear_term
+            + PRIMARY_LAW_COEFF * (secondary_signal ** 2)
+        )
+        jacobian_determinant = 1.0 + self.gain_alpha * (1.0 - math.tanh(norm_p - 1.0) ** 2)
+        
+        damping_ratio = 1.0 / (1.0 + frame.harmonic_distortion_ratio * frame.ambient_stress_factor)
+        
