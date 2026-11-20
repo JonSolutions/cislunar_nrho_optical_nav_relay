@@ -92,3 +92,4 @@ class BilligShockTrainDuctKalmanStateVector:
 class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
     """
     Production solver for BilligShockTrainDuct (PrimaryEquilibriumSolver).
+    Enforces BilligShockTrainCorrelation (coeff=1.4000e+00)
