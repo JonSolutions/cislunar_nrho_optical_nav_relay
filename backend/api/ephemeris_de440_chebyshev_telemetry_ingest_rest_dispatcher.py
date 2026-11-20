@@ -27,3 +27,19 @@ NOMINAL_BASELINE_A: float = 0.012150
 NOMINAL_TOLERANCE_A: float = 0.000100
 NOMINAL_BASELINE_B: float = 0.140000
 NOMINAL_TOLERANCE_B: float = 0.000200
+
+
+class BarycentricPerturbationState(str, Enum):
+    COLD_STANDBY = "COLD_STANDBY"
+    PRE_START_VERIFICATION = "PRE_START_VERIFICATION"
+    CLOSED_LOOP_ACTIVE = "CLOSED_LOOP_ACTIVE"
+    HIGH_GRADIENT_DAMPING = "HIGH_GRADIENT_DAMPING"
+    DEGRADED_FALLBACK = "DEGRADED_FALLBACK"
+    INTERLOCK_SCRAM_LATCHED = "INTERLOCK_SCRAM_LATCHED"
+
+
+@dataclass(frozen=True)
+class BarycentricPerturbationFrame:
+    frame_id: str
+    facility_node: str
+    
