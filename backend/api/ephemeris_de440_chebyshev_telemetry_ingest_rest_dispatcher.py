@@ -19,3 +19,11 @@ from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 LOGGER = logging.getLogger("cislunar_nrho_.api.ephemeris_de440_")
+
+SIGNING_ENV_REF = os.environ.get("TELEMETRY_HMAC_REF", "dev-local-hmac-placeholder")
+PRIMARY_LAW_COEFF: float = 1.00000000e+00
+SECONDARY_LAW_COEFF: float = 3.05200000e+00
+NOMINAL_BASELINE_A: float = 0.012150
+NOMINAL_TOLERANCE_A: float = 0.000100
+NOMINAL_BASELINE_B: float = 0.140000
+NOMINAL_TOLERANCE_B: float = 0.000200
