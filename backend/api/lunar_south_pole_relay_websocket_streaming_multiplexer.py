@@ -33,4 +33,35 @@ class ShackletonRimGroundLinkState(str, Enum):
     COLD_STANDBY = "COLD_STANDBY"
     PRE_START_VERIFICATION = "PRE_START_VERIFICATION"
     CLOSED_LOOP_ACTIVE = "CLOSED_LOOP_ACTIVE"
-    
+    HIGH_GRADIENT_DAMPING = "HIGH_GRADIENT_DAMPING"
+    DEGRADED_FALLBACK = "DEGRADED_FALLBACK"
+    INTERLOCK_SCRAM_LATCHED = "INTERLOCK_SCRAM_LATCHED"
+
+
+@dataclass(frozen=True)
+class ShackletonRimGroundLinkFrame:
+    frame_id: str
+    facility_node: str
+    timestamp_ms: int
+    elevation_mask_deg: float
+    multipath_fade_db: float
+    specific_impulse_sec: float
+    visual_magnitude_mv: float
+    harmonic_distortion_ratio: float
+    ambient_stress_factor: float
+    redundant_channel_ok: bool = True
+
+    def validate_physical_bounds(self) -> Tuple[bool, List[str]]:
+        violations: List[str] = []
+        if self.timestamp_ms <= 0:
+            violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.elevation_mask_deg) or math.isinf(self.elevation_mask_deg):
+            violations.append("elevation_mask_deg_non_finite")
+        if math.isnan(self.multipath_fade_db) or math.isinf(self.multipath_fade_db):
+            violations.append("multipath_fade_db_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
+        if self.ambient_stress_factor <= 0.0:
+            violations.append("ambient_stress_factor_non_positive")
+        return (len(violations) == 0, violations)
+
