@@ -65,3 +65,9 @@ class ShackletonRimGroundLinkFrame:
             violations.append("ambient_stress_factor_non_positive")
         return (len(violations) == 0, violations)
 
+    def compute_normalized_deviation(self) -> float:
+        delta_a = abs(self.elevation_mask_deg - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
+        delta_b = abs(self.specific_impulse_sec - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
+        weighted = 0.62 * delta_a + 0.38 * delta_b
+        return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
+    
