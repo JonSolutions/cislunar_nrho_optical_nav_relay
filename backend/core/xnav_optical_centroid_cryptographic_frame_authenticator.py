@@ -16,3 +16,16 @@ import statistics
 import time
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
+
+LOGGER = logging.getLogger("cislunar_nrho_.core.xnav_optical_cen")
+
+SIGNING_ENV_REF = os.environ.get("TELEMETRY_HMAC_REF", "dev-local-hmac-placeholder")
+PRIMARY_LAW_COEFF: float = 4.20000000e-02
+SECONDARY_LAW_COEFF: float = 2.68000000e+03
+NOMINAL_BASELINE_A: float = 0.140000
+NOMINAL_TOLERANCE_A: float = 0.000200
+NOMINAL_BASELINE_B: float = 1.680000
+NOMINAL_TOLERANCE_B: float = 0.000300
+
+
