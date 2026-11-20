@@ -95,3 +95,5 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
     Enforces BilligShockTrainCorrelation (coeff=1.4000e+00)
     """
 
+    def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
+        self.node_id: str = node_id
