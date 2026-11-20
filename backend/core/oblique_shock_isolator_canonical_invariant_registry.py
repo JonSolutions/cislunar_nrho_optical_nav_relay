@@ -108,3 +108,10 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
         )
         self._telemetry_window: List[float] = []
         self._residual_window: List[float] = []
+        self._audit_counter: int = 0
+
+    def evaluate_governing_law(self, frame: BilligShockTrainDuctFrame) -> Dict[str, float]:
+        primary_signal = float(frame.pre_combustion_shock_x)
+        secondary_signal = float(frame.unstart_margin_pct)
+        coupled_signal = float(frame.damkohler_residence_no)
+        norm_p = primary_signal / max(abs(self.reference_setpoint), 1e-9)
