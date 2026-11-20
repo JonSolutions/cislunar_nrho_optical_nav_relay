@@ -107,3 +107,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
             covariance_diag=[0.004100, 0.002050, 0.003280, 0.01],
         )
         self._telemetry_window: List[float] = []
+        self._residual_window: List[float] = []
