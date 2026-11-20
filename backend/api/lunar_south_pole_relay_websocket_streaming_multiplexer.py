@@ -23,3 +23,14 @@ LOGGER = logging.getLogger("cislunar_nrho_.api.lunar_south_pole")
 SIGNING_ENV_REF = os.environ.get("TELEMETRY_HMAC_REF", "dev-local-hmac-placeholder")
 PRIMARY_LAW_COEFF: float = 4.25000000e-05
 SECONDARY_LAW_COEFF: float = 4.20000000e-02
+NOMINAL_BASELINE_A: float = 14.200000
+NOMINAL_TOLERANCE_A: float = 0.001400
+NOMINAL_BASELINE_B: float = 2650.000000
+NOMINAL_TOLERANCE_B: float = 0.011000
+
+
+class ShackletonRimGroundLinkState(str, Enum):
+    COLD_STANDBY = "COLD_STANDBY"
+    PRE_START_VERIFICATION = "PRE_START_VERIFICATION"
+    CLOSED_LOOP_ACTIVE = "CLOSED_LOOP_ACTIVE"
+    
