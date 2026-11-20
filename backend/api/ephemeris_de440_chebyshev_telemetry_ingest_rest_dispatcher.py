@@ -165,6 +165,7 @@ class BarycentricPerturbationPrimaryEquilibriumSolverM11:
         upd_p0 = max((1.0 - kalman_gain_k0) * pred_p0, 1e-12)
         upd_p1 = max((1.0 - 0.25 * kalman_gain_k1) * pred_p1, 1e-12)
         mahalanobis_d2 = (innovation_y ** 2) / max(innovation_s, 1e-12)
+        mahalanobis_dist = math.sqrt(max(mahalanobis_d2, 0.0))
         self.state_vector.epoch_ms = frame.timestamp_ms
         self.state_vector.state_estimate = [upd_x0, upd_x1, pred_x2, pred_x3]
         self.state_vector.covariance_diag = [upd_p0, upd_p1, pred_p2, pred_p3]
@@ -182,4 +183,22 @@ class BarycentricPerturbationPrimaryEquilibriumSolverM11:
         )
         self._transition_operational_regime(mahalanobis_dist, frame.redundant_channel_ok)
         self._audit_counter += 1
-        
+        return {
+            "status": "CONVERGED",
+            "node_id": self.node_id,
+            "primary_metric": "earth_moon_mu_ratio",
+            "secondary_metric": "solar_tidal_accel_m_s2",
+            "posterior_estimate": round(upd_x0, 7),
+            "posterior_velocity": round(upd_x1, 7),
+            "innovation_residual": round(innovation_y, 7),
+            "kalman_gain": round(kalman_gain_k0, 7),
+            "mahalanobis_distance": round(mahalanobis_dist, 7),
+            "covariance_trace": round(self.state_vector.covariance_trace(), 8),
+            "regime": self.state_vector.regime.value,
+            "audit_seq": self._audit_counter,
+        }
+
+    def _transition_operational_regime(self, m_dist: float, redundant_ok: bool) -> None:
+        if not redundant_ok or m_dist > 6.5:
+            self.state_vector.consecutive_fault_ticks += 1
+            
