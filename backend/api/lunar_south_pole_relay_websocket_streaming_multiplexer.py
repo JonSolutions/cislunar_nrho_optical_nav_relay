@@ -70,4 +70,18 @@ class ShackletonRimGroundLinkFrame:
         delta_b = abs(self.specific_impulse_sec - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
         weighted = 0.62 * delta_a + 0.38 * delta_b
         return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
+
+
+@dataclass
+class ShackletonRimGroundLinkKalmanStateVector:
+    epoch_ms: int
+    state_estimate: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0, 0.0])
+    covariance_diag: List[float] = field(default_factory=lambda: [1.0, 1.0, 1.0, 1.0])
+    innovation_history: List[float] = field(default_factory=list)
+    integrated_lyapunov_energy: float = 0.0
+    consecutive_fault_ticks: int = 0
+    regime: ShackletonRimGroundLinkState = ShackletonRimGroundLinkState.COLD_STANDBY
+
+    def covariance_trace(self) -> float:
+        return float(sum(max(c, 1e-12) for c in self.covariance_diag))
     
