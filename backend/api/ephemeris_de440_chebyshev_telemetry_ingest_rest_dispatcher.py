@@ -50,4 +50,24 @@ class BarycentricPerturbationFrame:
     harmonic_distortion_ratio: float
     ambient_stress_factor: float
     redundant_channel_ok: bool = True
+
+    def validate_physical_bounds(self) -> Tuple[bool, List[str]]:
+        violations: List[str] = []
+        if self.timestamp_ms <= 0:
+            violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.earth_moon_mu_ratio) or math.isinf(self.earth_moon_mu_ratio):
+            violations.append("earth_moon_mu_ratio_non_finite")
+        if math.isnan(self.solar_tidal_accel_m_s2) or math.isinf(self.solar_tidal_accel_m_s2):
+            violations.append("solar_tidal_accel_m_s2_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
+        if self.ambient_stress_factor <= 0.0:
+            violations.append("ambient_stress_factor_non_positive")
+        return (len(violations) == 0, violations)
+
+    def compute_normalized_deviation(self) -> float:
+        delta_a = abs(self.earth_moon_mu_ratio - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
+        delta_b = abs(self.lunar_limb_pixel_err - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
+        weighted = 0.62 * delta_a + 0.38 * delta_b
+        return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
     
