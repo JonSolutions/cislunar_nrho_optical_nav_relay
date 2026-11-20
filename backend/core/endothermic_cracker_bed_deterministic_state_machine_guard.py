@@ -55,4 +55,10 @@ class ZeoliteCatalystReactorFrame:
         violations: List[str] = []
         if self.timestamp_ms <= 0:
             violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.jp7_conversion_frac) or math.isinf(self.jp7_conversion_frac):
+            "e")
+        if math.isnan(self.ethylene_yield_mol) or math.isinf(self.ethylene_yield_mol):
+            violations.append("ethylene_yield_mol_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
             
