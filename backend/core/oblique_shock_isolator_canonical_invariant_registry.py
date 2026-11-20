@@ -57,4 +57,23 @@ class BilligShockTrainDuctFrame:
             violations.append("timestamp_ms_must_be_positive")
         if math.isnan(self.pre_combustion_shock_x) or math.isinf(self.pre_combustion_shock_x):
             violations.append("pre_combustion_shock_x_non_finite")
-            
+        if math.isnan(self.unstart_margin_pct) or math.isinf(self.unstart_margin_pct):
+            violations.append("unstart_margin_pct_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
+        if self.ambient_stress_factor <= 0.0:
+            violations.append("ambient_stress_factor_non_positive")
+        return (len(violations) == 0, violations)
+
+    def compute_normalized_deviation(self) -> float:
+        delta_a = abs(self.pre_combustion_shock_x - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
+        delta_b = abs(self.damkohler_residence_no - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
+        weighted = 0.62 * delta_a + 0.38 * delta_b
+        return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
+
+
+@dataclass
+class BilligShockTrainDuctKalmanStateVector:
+    epoch_ms: int
+    state_estimate: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0, 0.0])
+    
