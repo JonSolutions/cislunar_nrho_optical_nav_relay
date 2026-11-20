@@ -37,3 +37,24 @@ class BilligShockTrainDuctState(str, Enum):
     DEGRADED_FALLBACK = "DEGRADED_FALLBACK"
     INTERLOCK_SCRAM_LATCHED = "INTERLOCK_SCRAM_LATCHED"
 
+
+@dataclass(frozen=True)
+class BilligShockTrainDuctFrame:
+    frame_id: str
+    facility_node: str
+    timestamp_ms: int
+    pre_combustion_shock_x: float
+    unstart_margin_pct: float
+    damkohler_residence_no: float
+    freestream_mach_est: float
+    harmonic_distortion_ratio: float
+    ambient_stress_factor: float
+    redundant_channel_ok: bool = True
+
+    def validate_physical_bounds(self) -> Tuple[bool, List[str]]:
+        violations: List[str] = []
+        if self.timestamp_ms <= 0:
+            violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.pre_combustion_shock_x) or math.isinf(self.pre_combustion_shock_x):
+            violations.append("pre_combustion_shock_x_non_finite")
+            
