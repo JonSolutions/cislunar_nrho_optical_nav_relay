@@ -42,4 +42,12 @@ class BarycentricPerturbationState(str, Enum):
 class BarycentricPerturbationFrame:
     frame_id: str
     facility_node: str
+    timestamp_ms: int
+    earth_moon_mu_ratio: float
+    solar_tidal_accel_m_s2: float
+    lunar_limb_pixel_err: float
+    cr_reflectivity_coeff: float
+    harmonic_distortion_ratio: float
+    ambient_stress_factor: float
+    redundant_channel_ok: bool = True
     
