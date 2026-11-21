@@ -72,3 +72,4 @@ class ZeoliteCatalystReactorFrame:
         return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
 
 
+@dataclass
