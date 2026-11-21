@@ -132,3 +132,6 @@ class ShackletonRimGroundLinkPrimaryEquilibriumSolverM12:
             "jacobian_determinant": round(jacobian_determinant, 8),
             "effective_damping_ratio": round(damping_ratio, 8),
         }
+
+    def step_extended_kalman_filter(self, frame: ShackletonRimGroundLinkFrame) -> Dict[str, Any]:
+        is_valid, errors = frame.validate_physical_bounds()
