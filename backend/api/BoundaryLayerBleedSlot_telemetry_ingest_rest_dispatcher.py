@@ -35,3 +35,23 @@ class PorousThroatBleedManifoldState(str, Enum):
     CLOSED_LOOP_ACTIVE = "CLOSED_LOOP_ACTIVE"
     HIGH_GRADIENT_DAMPING = "HIGH_GRADIENT_DAMPING"
     DEGRADED_FALLBACK = "DEGRADED_FALLBACK"
+    INTERLOCK_SCRAM_LATCHED = "INTERLOCK_SCRAM_LATCHED"
+
+
+@dataclass(frozen=True)
+class PorousThroatBleedManifoldFrame:
+    frame_id: str
+    facility_node: str
+    timestamp_ms: int
+    displacement_thick_mm: float
+    mass_bleed_fraction: float
+    fuel_supercritical_mpa: float
+    radical_oh_ppm: float
+    harmonic_distortion_ratio: float
+    ambient_stress_factor: float
+    redundant_channel_ok: bool = True
+
+    def validate_physical_bounds(self) -> Tuple[bool, List[str]]:
+        violations: List[str] = []
+        if self.timestamp_ms <= 0:
+            violations.append("timestamp_ms_must_be_positive")
