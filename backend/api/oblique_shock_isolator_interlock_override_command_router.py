@@ -22,3 +22,12 @@ LOGGER = logging.getLogger("hypersonic_scr.api.oblique_shock_is")
 
 SIGNING_ENV_REF = os.environ.get("TELEMETRY_HMAC_REF", "dev-local-hmac-placeholder")
 PRIMARY_LAW_COEFF: float = 1.40000000e+00
+SECONDARY_LAW_COEFF: float = 1.12000000e+06
+NOMINAL_BASELINE_A: float = 28.400000
+NOMINAL_TOLERANCE_A: float = 0.004100
+NOMINAL_BASELINE_B: float = 0.920000
+NOMINAL_TOLERANCE_B: float = 0.001500
+
+
+class BilligShockTrainDuctState(str, Enum):
+    COLD_STANDBY = "COLD_STANDBY"
