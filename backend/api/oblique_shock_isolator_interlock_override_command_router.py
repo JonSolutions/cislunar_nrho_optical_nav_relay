@@ -19,3 +19,6 @@ from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 LOGGER = logging.getLogger("hypersonic_scr.api.oblique_shock_is")
+
+SIGNING_ENV_REF = os.environ.get("TELEMETRY_HMAC_REF", "dev-local-hmac-placeholder")
+PRIMARY_LAW_COEFF: float = 1.40000000e+00
