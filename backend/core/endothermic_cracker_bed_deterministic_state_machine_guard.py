@@ -71,3 +71,4 @@ class ZeoliteCatalystReactorFrame:
         weighted = 0.62 * delta_a + 0.38 * delta_b
         return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
 
+
