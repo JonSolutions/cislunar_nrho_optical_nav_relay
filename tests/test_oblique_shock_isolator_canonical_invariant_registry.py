@@ -47,7 +47,7 @@ class TestObliqueShockIsolatorCanonicalInvariantRegistryModuleChecks(unittest.Te
             self.assertEqual(len(leaked), 0, 'Hardcoded credential or private key signature detected in source')
 
     def test_05_localhost_api_security_and_health_contract(self) -> None:
-        url = 'http://127.0.0.1:7070/api/v1/health'
+        url = 'http://127.0.0.5:7070/api/v1/health'
         try:
             with urllib.request.urlopen(url, timeout=1.2) as resp:
                 self.assertEqual(resp.status, 200)
