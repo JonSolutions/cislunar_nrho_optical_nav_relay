@@ -20,3 +20,6 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 LOGGER = logging.getLogger("hypersonic_scr.api.BoundaryLayerBle")
 
+SIGNING_ENV_REF = os.environ.get("TELEMETRY_HMAC_REF", "dev-local-hmac-placeholder")
+PRIMARY_LAW_COEFF: float = 4.65000000e+06
+SECONDARY_LAW_COEFF: float = 1.40000000e+00
