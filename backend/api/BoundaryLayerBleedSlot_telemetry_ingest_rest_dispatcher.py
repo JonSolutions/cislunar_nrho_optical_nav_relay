@@ -57,3 +57,5 @@ class PorousThroatBleedManifoldFrame:
             violations.append("timestamp_ms_must_be_positive")
         if math.isnan(self.displacement_thick_mm) or math.isinf(self.displacement_thick_mm):
             violations.append("displacement_thick_mm_non_finite")
+        if math.isnan(self.mass_bleed_fraction) or math.isinf(self.mass_bleed_fraction):
+            violations.append("mass_bleed_fraction_non_finite")
