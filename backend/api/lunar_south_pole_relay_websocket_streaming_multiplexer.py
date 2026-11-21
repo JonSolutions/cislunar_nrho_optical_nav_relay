@@ -106,7 +106,6 @@ class ShackletonRimGroundLinkPrimaryEquilibriumSolverM12:
             state_estimate=[14.200000, 0.0, 2.130000, 1.0],
             covariance_diag=[0.001400, 0.000700, 0.001120, 0.01],
         )
-        
         self._telemetry_window: List[float] = []
         self._residual_window: List[float] = []
         self._audit_counter: int = 0
@@ -129,4 +128,7 @@ class ShackletonRimGroundLinkPrimaryEquilibriumSolverM12:
             "normalized_primary": round(norm_p, 8),
             "normalized_secondary": round(norm_s, 8),
             "non_linear_coupling": round(non_linear_term, 8),
-            
+            "helmholtz_energy": round(helmholtz_free_energy, 8),
+            "jacobian_determinant": round(jacobian_determinant, 8),
+            "effective_damping_ratio": round(damping_ratio, 8),
+        }
