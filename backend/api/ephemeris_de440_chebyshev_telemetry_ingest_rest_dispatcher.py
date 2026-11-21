@@ -201,4 +201,23 @@ class BarycentricPerturbationPrimaryEquilibriumSolverM11:
     def _transition_operational_regime(self, m_dist: float, redundant_ok: bool) -> None:
         if not redundant_ok or m_dist > 6.5:
             self.state_vector.consecutive_fault_ticks += 1
-            
+            if self.state_vector.consecutive_fault_ticks >= 3:
+                self.state_vector.regime = BarycentricPerturbationState.INTERLOCK_SCRAM_LATCHED
+            else:
+                self.state_vector.regime = BarycentricPerturbationState.HIGH_GRADIENT_DAMPING
+        elif m_dist > 3.2:
+            prev_ft = self.state_vector.consecutive_fault_ticks
+            self.state_vector.consecutive_fault_ticks = max(0, prev_ft - 1)
+            self.state_vector.regime = BarycentricPerturbationState.HIGH_GRADIENT_DAMPING
+        else:
+            self.state_vector.consecutive_fault_ticks = 0
+            self.state_vector.regime = BarycentricPerturbationState.CLOSED_LOOP_ACTIVE
+
+    def compute_spectral_stability_metrics(self) -> Dict[str, float]:
+        if len(self._telemetry_window) < 4:
+            return {
+                "window_mean": self.reference_setpoint,
+                "window_sigma": 0.0,
+                "allan_variance_proxy": 0.0,
+                "crest_factor": 1.0,
+                "lyapunov_exponent_est": -0.15,
