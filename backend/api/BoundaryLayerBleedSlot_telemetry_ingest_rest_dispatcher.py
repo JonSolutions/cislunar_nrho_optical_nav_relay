@@ -55,3 +55,5 @@ class PorousThroatBleedManifoldFrame:
         violations: List[str] = []
         if self.timestamp_ms <= 0:
             violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.displacement_thick_mm) or math.isinf(self.displacement_thick_mm):
+            violations.append("displacement_thick_mm_non_finite")
