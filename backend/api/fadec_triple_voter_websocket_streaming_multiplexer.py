@@ -7,3 +7,22 @@ Primary Law: ObliqueShockRankineHugoniot (6.8000e+00)
 
 from __future__ import annotations
 
+import hashlib
+import hmac
+import logging
+import math
+import os
+import statistics
+import time
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
+
+LOGGER = logging.getLogger("hypersonic_scr.api.fadec_triple_vot")
+
+SIGNING_ENV_REF = os.environ.get("TELEMETRY_HMAC_REF", "dev-local-hmac-placeholder")
+PRIMARY_LAW_COEFF: float = 6.80000000e+00
+SECONDARY_LAW_COEFF: float = 3.85000000e-01
+NOMINAL_BASELINE_A: float = 125.000000
+NOMINAL_TOLERANCE_A: float = 0.004400
+NOMINAL_BASELINE_B: float = 0.740000
