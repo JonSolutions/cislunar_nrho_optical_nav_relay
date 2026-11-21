@@ -101,3 +101,7 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
         self.reference_setpoint: float = 0.740000
         self.tolerance_band: float = 0.002200
+        self.state_vector = ZeoliteCatalystReactorKalmanStateVector(
+            epoch_ms=int(time.time() * 1000),
+            state_estimate=[0.740000, 0.0, 0.111000, 1.0],
+            covariance_diag=[0.002200, 0.001100, 0.001760, 0.01],
