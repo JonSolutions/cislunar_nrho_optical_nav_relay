@@ -78,3 +78,4 @@ class ZeoliteCatalystReactorKalmanStateVector:
     state_estimate: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0, 0.0])
     covariance_diag: List[float] = field(default_factory=lambda: [1.0, 1.0, 1.0, 1.0])
     innovation_history: List[float] = field(default_factory=list)
+    integrated_lyapunov_energy: float = 0.0
