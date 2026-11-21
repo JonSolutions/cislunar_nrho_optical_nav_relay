@@ -81,3 +81,19 @@ class ZeoliteCatalystReactorKalmanStateVector:
     integrated_lyapunov_energy: float = 0.0
     consecutive_fault_ticks: int = 0
     regime: ZeoliteCatalystReactorState = ZeoliteCatalystReactorState.COLD_STANDBY
+
+    def covariance_trace(self) -> float:
+        return float(sum(max(c, 1e-12) for c in self.covariance_diag))
+
+    def spectral_condition_proxy(self) -> float:
+        clean = [max(c, 1e-12) for c in self.covariance_diag]
+        return float(max(clean) / min(clean))
+
+class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
+    """
+    Production solver for ZeoliteCatalystReactor (PrimaryEquilibriumSolver).
+    Enforces FayRiddellStagnationHeating (coeff=1.1200e+06)
+    """
+
+    def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
+        self.node_id: str = node_id
