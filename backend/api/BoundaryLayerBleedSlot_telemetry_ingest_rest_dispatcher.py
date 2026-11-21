@@ -19,3 +19,4 @@ from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 LOGGER = logging.getLogger("hypersonic_scr.api.BoundaryLayerBle")
+
