@@ -59,3 +59,13 @@ class PorousThroatBleedManifoldFrame:
             violations.append("displacement_thick_mm_non_finite")
         if math.isnan(self.mass_bleed_fraction) or math.isinf(self.mass_bleed_fraction):
             violations.append("mass_bleed_fraction_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
+        if self.ambient_stress_factor <= 0.0:
+            violations.append("ambient_stress_factor_non_positive")
+        return (len(violations) == 0, violations)
+
+    def compute_normalized_deviation(self) -> float:
+        delta_a = abs(self.displacement_thick_mm - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
+        delta_b = abs(self.fuel_supercritical_mpa - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
+        weighted = 0.62 * delta_a + 0.38 * delta_b
