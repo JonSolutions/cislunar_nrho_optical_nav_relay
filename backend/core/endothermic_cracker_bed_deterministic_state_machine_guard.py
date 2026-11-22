@@ -109,3 +109,8 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         self._telemetry_window: List[float] = []
         self._residual_window: List[float] = []
         self._audit_counter: int = 0
+
+    def evaluate_governing_law(self, frame: ZeoliteCatalystReactorFrame) -> Dict[str, float]:
+        primary_signal = float(frame.jp7_conversion_frac)
+        secondary_signal = float(frame.ethylene_yield_mol)
+        coupled_signal = float(frame.radical_oh_ppm)
