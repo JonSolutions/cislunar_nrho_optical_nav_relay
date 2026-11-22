@@ -81,3 +81,4 @@ class PorousThroatBleedManifoldKalmanStateVector:
     integrated_lyapunov_energy: float = 0.0
     consecutive_fault_ticks: int = 0
     regime: PorousThroatBleedManifoldState = PorousThroatBleedManifoldState.COLD_STANDBY
+
