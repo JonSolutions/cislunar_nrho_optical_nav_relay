@@ -59,3 +59,5 @@ class BilligShockTrainDuctFrame:
             violations.append("pre_combustion_shock_x_non_finite")
         if math.isnan(self.unstart_margin_pct) or math.isinf(self.unstart_margin_pct):
             violations.append("unstart_margin_pct_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
