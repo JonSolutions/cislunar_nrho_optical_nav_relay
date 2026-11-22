@@ -105,3 +105,7 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
             epoch_ms=int(time.time() * 1000),
             state_estimate=[0.740000, 0.0, 0.111000, 1.0],
             covariance_diag=[0.002200, 0.001100, 0.001760, 0.01],
+        )
+        self._telemetry_window: List[float] = []
+        self._residual_window: List[float] = []
+        self._audit_counter: int = 0
