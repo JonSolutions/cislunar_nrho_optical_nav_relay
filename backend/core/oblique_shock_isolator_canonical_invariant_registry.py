@@ -159,3 +159,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
         innovation_y = measurement_z - pred_x0
         innovation_s = pred_p0 + r_noise
         kalman_gain_k0 = pred_p0 / innovation_s
+        kalman_gain_k1 = (0.25 * pred_p1) / innovation_s
