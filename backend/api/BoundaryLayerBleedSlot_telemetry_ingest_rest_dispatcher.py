@@ -69,3 +69,4 @@ class PorousThroatBleedManifoldFrame:
         delta_a = abs(self.displacement_thick_mm - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
         delta_b = abs(self.fuel_supercritical_mpa - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
         weighted = 0.62 * delta_a + 0.38 * delta_b
+        return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
