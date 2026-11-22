@@ -33,3 +33,15 @@ class BilligShockTrainDuctState(str, Enum):
     COLD_STANDBY = "COLD_STANDBY"
     PRE_START_VERIFICATION = "PRE_START_VERIFICATION"
     CLOSED_LOOP_ACTIVE = "CLOSED_LOOP_ACTIVE"
+    HIGH_GRADIENT_DAMPING = "HIGH_GRADIENT_DAMPING"
+    DEGRADED_FALLBACK = "DEGRADED_FALLBACK"
+    INTERLOCK_SCRAM_LATCHED = "INTERLOCK_SCRAM_LATCHED"
+
+
+@dataclass(frozen=True)
+class BilligShockTrainDuctFrame:
+    frame_id: str
+    facility_node: str
+    timestamp_ms: int
+    pre_combustion_shock_x: float
+    unstart_margin_pct: float
