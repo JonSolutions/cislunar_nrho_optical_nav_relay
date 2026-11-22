@@ -55,3 +55,5 @@ class BilligShockTrainDuctFrame:
         violations: List[str] = []
         if self.timestamp_ms <= 0:
             violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.pre_combustion_shock_x) or math.isinf(self.pre_combustion_shock_x):
+            violations.append("pre_combustion_shock_x_non_finite")
