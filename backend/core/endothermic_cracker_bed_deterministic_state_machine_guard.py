@@ -114,3 +114,4 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         primary_signal = float(frame.jp7_conversion_frac)
         secondary_signal = float(frame.ethylene_yield_mol)
         coupled_signal = float(frame.radical_oh_ppm)
+        norm_p = primary_signal / max(abs(self.reference_setpoint), 1e-9)
