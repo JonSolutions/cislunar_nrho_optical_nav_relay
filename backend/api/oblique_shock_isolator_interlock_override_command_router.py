@@ -57,3 +57,5 @@ class BilligShockTrainDuctFrame:
             violations.append("timestamp_ms_must_be_positive")
         if math.isnan(self.pre_combustion_shock_x) or math.isinf(self.pre_combustion_shock_x):
             violations.append("pre_combustion_shock_x_non_finite")
+        if math.isnan(self.unstart_margin_pct) or math.isinf(self.unstart_margin_pct):
+            violations.append("unstart_margin_pct_non_finite")
