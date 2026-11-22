@@ -53,3 +53,5 @@ class BilligShockTrainDuctFrame:
 
     def validate_physical_bounds(self) -> Tuple[bool, List[str]]:
         violations: List[str] = []
+        if self.timestamp_ms <= 0:
+            violations.append("timestamp_ms_must_be_positive")
