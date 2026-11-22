@@ -49,3 +49,4 @@ class InconelMicrochannelWallFrame:
     thermal_throat_area: float
     harmonic_distortion_ratio: float
     ambient_stress_factor: float
+    redundant_channel_ok: bool = True
