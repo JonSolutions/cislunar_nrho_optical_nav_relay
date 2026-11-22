@@ -115,3 +115,20 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         secondary_signal = float(frame.ethylene_yield_mol)
         coupled_signal = float(frame.radical_oh_ppm)
         norm_p = primary_signal / max(abs(self.reference_setpoint), 1e-9)
+        norm_s = secondary_signal / max(abs(self.reference_setpoint * 0.25 + 1.0), 1e-9)
+        non_linear_term = math.tanh(norm_p - 1.0) * math.exp(-0.15 * abs(norm_s))
+        helmholtz_free_energy = (
+            0.5 * (primary_signal - self.reference_setpoint) ** 2
+            + 0.18 * coupled_signal * non_linear_term
+            + PRIMARY_LAW_COEFF * (secondary_signal ** 2)
+        )
+        jacobian_determinant = 1.0 + self.gain_alpha * (1.0 - math.tanh(norm_p - 1.0) ** 2)
+        damping_ratio = 1.0 / (1.0 + frame.harmonic_distortion_ratio * frame.ambient_stress_factor)
+        return {
+            "normalized_primary": round(norm_p, 8),
+            "normalized_secondary": round(norm_s, 8),
+            "non_linear_coupling": round(non_linear_term, 8),
+            "helmholtz_energy": round(helmholtz_free_energy, 8),
+            "jacobian_determinant": round(jacobian_determinant, 8),
+            "effective_damping_ratio": round(damping_ratio, 8),
+        }
