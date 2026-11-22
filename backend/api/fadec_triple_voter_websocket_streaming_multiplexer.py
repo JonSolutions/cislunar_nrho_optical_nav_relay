@@ -43,3 +43,4 @@ class ByzantineTriplexBusFrame:
     frame_id: str
     facility_node: str
     timestamp_ms: int
+    channel_skew_usec: float
