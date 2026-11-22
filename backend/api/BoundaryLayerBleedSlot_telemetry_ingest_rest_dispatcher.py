@@ -82,3 +82,13 @@ class PorousThroatBleedManifoldKalmanStateVector:
     consecutive_fault_ticks: int = 0
     regime: PorousThroatBleedManifoldState = PorousThroatBleedManifoldState.COLD_STANDBY
 
+    def covariance_trace(self) -> float:
+        return float(sum(max(c, 1e-12) for c in self.covariance_diag))
+
+    def spectral_condition_proxy(self) -> float:
+        clean = [max(c, 1e-12) for c in self.covariance_diag]
+        return float(max(clean) / min(clean))
+
+class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
+    """
+    Production solver for PorousThroatBleedManifold (PrimaryEquilibriumSolver).
