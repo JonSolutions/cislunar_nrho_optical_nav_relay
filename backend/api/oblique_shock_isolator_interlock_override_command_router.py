@@ -48,3 +48,8 @@ class BilligShockTrainDuctFrame:
     damkohler_residence_no: float
     freestream_mach_est: float
     harmonic_distortion_ratio: float
+    ambient_stress_factor: float
+    redundant_channel_ok: bool = True
+
+    def validate_physical_bounds(self) -> Tuple[bool, List[str]]:
+        violations: List[str] = []
