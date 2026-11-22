@@ -92,3 +92,5 @@ class PorousThroatBleedManifoldKalmanStateVector:
 class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
     """
     Production solver for PorousThroatBleedManifold (PrimaryEquilibriumSolver).
+    Enforces EndothermicHeatSinkCapacity (coeff=4.6500e+06)
+    """
