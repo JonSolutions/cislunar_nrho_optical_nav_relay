@@ -61,3 +61,5 @@ class BilligShockTrainDuctFrame:
             violations.append("unstart_margin_pct_non_finite")
         if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
             violations.append("harmonic_distortion_out_of_unit_interval")
+        if self.ambient_stress_factor <= 0.0:
+            violations.append("ambient_stress_factor_non_positive")
