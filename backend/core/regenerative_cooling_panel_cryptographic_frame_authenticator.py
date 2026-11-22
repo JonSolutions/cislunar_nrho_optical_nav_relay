@@ -35,3 +35,17 @@ class InconelMicrochannelWallState(str, Enum):
     CLOSED_LOOP_ACTIVE = "CLOSED_LOOP_ACTIVE"
     HIGH_GRADIENT_DAMPING = "HIGH_GRADIENT_DAMPING"
     DEGRADED_FALLBACK = "DEGRADED_FALLBACK"
+    INTERLOCK_SCRAM_LATCHED = "INTERLOCK_SCRAM_LATCHED"
+
+
+@dataclass(frozen=True)
+class InconelMicrochannelWallFrame:
+    frame_id: str
+    facility_node: str
+    timestamp_ms: int
+    fuel_supercritical_mpa: float
+    coking_deposit_um: float
+    mach_capture_area_ratio: float
+    thermal_throat_area: float
+    harmonic_distortion_ratio: float
+    ambient_stress_factor: float
