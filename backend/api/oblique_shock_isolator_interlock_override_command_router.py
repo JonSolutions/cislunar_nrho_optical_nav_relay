@@ -46,3 +46,4 @@ class BilligShockTrainDuctFrame:
     pre_combustion_shock_x: float
     unstart_margin_pct: float
     damkohler_residence_no: float
+    freestream_mach_est: float
