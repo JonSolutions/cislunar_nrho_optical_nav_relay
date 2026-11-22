@@ -64,3 +64,4 @@ class BilligShockTrainDuctFrame:
         if self.ambient_stress_factor <= 0.0:
             violations.append("ambient_stress_factor_non_positive")
         return (len(violations) == 0, violations)
+
