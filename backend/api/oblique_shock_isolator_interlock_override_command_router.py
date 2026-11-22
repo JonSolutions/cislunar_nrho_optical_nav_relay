@@ -47,3 +47,4 @@ class BilligShockTrainDuctFrame:
     unstart_margin_pct: float
     damkohler_residence_no: float
     freestream_mach_est: float
+    harmonic_distortion_ratio: float
