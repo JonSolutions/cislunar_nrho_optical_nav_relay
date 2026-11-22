@@ -72,3 +72,12 @@ class PorousThroatBleedManifoldFrame:
         return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
 
 
+@dataclass
+class PorousThroatBleedManifoldKalmanStateVector:
+    epoch_ms: int
+    state_estimate: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0, 0.0])
+    covariance_diag: List[float] = field(default_factory=lambda: [1.0, 1.0, 1.0, 1.0])
+    innovation_history: List[float] = field(default_factory=list)
+    integrated_lyapunov_energy: float = 0.0
+    consecutive_fault_ticks: int = 0
+    regime: PorousThroatBleedManifoldState = PorousThroatBleedManifoldState.COLD_STANDBY
