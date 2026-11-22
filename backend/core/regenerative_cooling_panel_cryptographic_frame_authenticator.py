@@ -55,3 +55,5 @@ class InconelMicrochannelWallFrame:
         violations: List[str] = []
         if self.timestamp_ms <= 0:
             violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.fuel_supercritical_mpa) or math.isinf(self.fuel_supercritical_mpa):
+            violations.append("fuel_supercritical_mpa_non_finite")
