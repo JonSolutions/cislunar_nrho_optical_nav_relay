@@ -50,3 +50,12 @@ class ByzantineTriplexBusFrame:
     harmonic_distortion_ratio: float
     ambient_stress_factor: float
     redundant_channel_ok: bool = True
+
+    def validate_physical_bounds(self) -> Tuple[bool, List[str]]:
+        violations: List[str] = []
+        if self.timestamp_ms <= 0:
+            violations.append("timestamp_ms_must_be_positive")
+        if math.isnan(self.channel_skew_usec) or math.isinf(self.channel_skew_usec):
+            violations.append("channel_skew_usec_non_finite")
+        if math.isnan(self.servo_current_ma) or math.isinf(self.servo_current_ma):
+            violations.append("servo_current_ma_non_finite")
