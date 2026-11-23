@@ -114,3 +114,5 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
         primary_signal = float(frame.displacement_thick_mm)
         secondary_signal = float(frame.mass_bleed_fraction)
         coupled_signal = float(frame.fuel_supercritical_mpa)
+        norm_p = primary_signal / max(abs(self.reference_setpoint), 1e-9)
+        norm_s = secondary_signal / max(abs(self.reference_setpoint * 0.25 + 1.0), 1e-9)
