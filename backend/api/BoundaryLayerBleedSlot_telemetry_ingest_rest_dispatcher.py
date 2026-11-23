@@ -132,3 +132,18 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
             "jacobian_determinant": round(jacobian_determinant, 8),
             "effective_damping_ratio": round(damping_ratio, 8),
         }
+
+    def step_extended_kalman_filter(self, frame: PorousThroatBleedManifoldFrame) -> Dict[str, Any]:
+        is_valid, errors = frame.validate_physical_bounds()
+        if not is_valid:
+            self.state_vector.consecutive_fault_ticks += 1
+            self.state_vector.regime = PorousThroatBleedManifoldState.DEGRADED_FALLBACK
+            return {
+                "status": "REJECTED_FRAME",
+                "errors": errors,
+                "regime": self.state_vector.regime.value,
+            }
+        x0, x1, x2, x3 = self.state_vector.state_estimate
+        p0, p1, p2, p3 = self.state_vector.covariance_diag
+        pred_x0 = x0 + self.dt_sec * x1
+        pred_x1 = 0.96 * x1 - 0.12 * (x0 - self.reference_setpoint)
