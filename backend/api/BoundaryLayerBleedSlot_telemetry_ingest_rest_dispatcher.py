@@ -106,3 +106,9 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
             state_estimate=[0.045000, 0.0, 0.006750, 1.0],
             covariance_diag=[0.000300, 0.000150, 0.000240, 0.01],
         )
+        self._telemetry_window: List[float] = []
+        self._residual_window: List[float] = []
+        self._audit_counter: int = 0
+
+    def evaluate_governing_law(self, frame: PorousThroatBleedManifoldFrame) -> Dict[str, float]:
+        primary_signal = float(frame.displacement_thick_mm)
