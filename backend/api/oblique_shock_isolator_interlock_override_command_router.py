@@ -65,3 +65,5 @@ class BilligShockTrainDuctFrame:
             violations.append("ambient_stress_factor_non_positive")
         return (len(violations) == 0, violations)
 
+    def compute_normalized_deviation(self) -> float:
+        delta_a = abs(self.pre_combustion_shock_x - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
