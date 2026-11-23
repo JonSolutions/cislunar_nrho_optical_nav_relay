@@ -71,3 +71,10 @@ class BilligShockTrainDuctFrame:
         weighted = 0.62 * delta_a + 0.38 * delta_b
         return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
 
+
+@dataclass
+class BilligShockTrainDuctKalmanStateVector:
+    epoch_ms: int
+    state_estimate: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0, 0.0])
+    covariance_diag: List[float] = field(default_factory=lambda: [1.0, 1.0, 1.0, 1.0])
+    innovation_history: List[float] = field(default_factory=list)
