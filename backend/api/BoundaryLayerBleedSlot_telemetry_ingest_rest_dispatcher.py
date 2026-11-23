@@ -153,3 +153,4 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
         pred_p0 = p0 + self.dt_sec * p1 + q_proc
         pred_p1 = p1 * 0.94 + q_proc
         pred_p2 = p2 * 0.95 + q_proc
+        pred_p3 = p3 * 0.98 + q_proc * 0.1
