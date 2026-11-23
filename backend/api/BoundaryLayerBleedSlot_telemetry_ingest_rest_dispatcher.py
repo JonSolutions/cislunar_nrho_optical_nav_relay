@@ -155,3 +155,16 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
         pred_p2 = p2 * 0.95 + q_proc
         pred_p3 = p3 * 0.98 + q_proc * 0.1
         measurement_z = float(frame.displacement_thick_mm)
+        r_noise = max(self.tolerance_band * (1.0 + frame.harmonic_distortion_ratio), 1e-6)
+        innovation_y = measurement_z - pred_x0
+        innovation_s = pred_p0 + r_noise
+        kalman_gain_k0 = pred_p0 / innovation_s
+        kalman_gain_k1 = (0.25 * pred_p1) / innovation_s
+        upd_x0 = pred_x0 + kalman_gain_k0 * innovation_y
+        upd_x1 = pred_x1 + kalman_gain_k1 * innovation_y
+        upd_p0 = max((1.0 - kalman_gain_k0) * pred_p0, 1e-12)
+        upd_p1 = max((1.0 - 0.25 * kalman_gain_k1) * pred_p1, 1e-12)
+        mahalanobis_d2 = (innovation_y ** 2) / max(innovation_s, 1e-12)
+        mahalanobis_dist = math.sqrt(max(mahalanobis_d2, 0.0))
+        self.state_vector.epoch_ms = frame.timestamp_ms
+        self.state_vector.state_estimate = [upd_x0, upd_x1, pred_x2, pred_x3]
