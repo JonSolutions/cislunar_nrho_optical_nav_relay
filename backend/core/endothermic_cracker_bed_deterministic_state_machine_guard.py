@@ -137,3 +137,9 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         is_valid, errors = frame.validate_physical_bounds()
         if not is_valid:
             self.state_vector.consecutive_fault_ticks += 1
+            self.state_vector.regime = ZeoliteCatalystReactorState.DEGRADED_FALLBACK
+            return {
+                "status": "REJECTED_FRAME",
+                "errors": errors,
+                "regime": self.state_vector.regime.value,
+            }
