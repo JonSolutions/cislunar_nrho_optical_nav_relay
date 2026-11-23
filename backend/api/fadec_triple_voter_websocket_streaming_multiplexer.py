@@ -59,3 +59,5 @@ class ByzantineTriplexBusFrame:
             violations.append("channel_skew_usec_non_finite")
         if math.isnan(self.servo_current_ma) or math.isinf(self.servo_current_ma):
             violations.append("servo_current_ma_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
