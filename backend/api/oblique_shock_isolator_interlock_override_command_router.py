@@ -67,3 +67,4 @@ class BilligShockTrainDuctFrame:
 
     def compute_normalized_deviation(self) -> float:
         delta_a = abs(self.pre_combustion_shock_x - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
+        delta_b = abs(self.damkohler_residence_no - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
