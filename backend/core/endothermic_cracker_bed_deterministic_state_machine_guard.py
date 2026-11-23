@@ -144,3 +144,7 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
                 "regime": self.state_vector.regime.value,
             }
         x0, x1, x2, x3 = self.state_vector.state_estimate
+        p0, p1, p2, p3 = self.state_vector.covariance_diag
+        pred_x0 = x0 + self.dt_sec * x1
+        pred_x1 = 0.96 * x1 - 0.12 * (x0 - self.reference_setpoint)
+        pred_x2 = 0.88 * x2 + 0.12 * frame.radical_oh_ppm
