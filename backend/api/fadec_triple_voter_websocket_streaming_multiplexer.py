@@ -44,3 +44,9 @@ class ByzantineTriplexBusFrame:
     facility_node: str
     timestamp_ms: int
     channel_skew_usec: float
+    servo_current_ma: float
+    jp7_conversion_frac: float
+    stagnation_temp_kelvin: float
+    harmonic_distortion_ratio: float
+    ambient_stress_factor: float
+    redundant_channel_ok: bool = True
