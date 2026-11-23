@@ -86,3 +86,4 @@ class ByzantineTriplexBusKalmanStateVector:
         return float(sum(max(c, 1e-12) for c in self.covariance_diag))
 
     def spectral_condition_proxy(self) -> float:
+        clean = [max(c, 1e-12) for c in self.covariance_diag]
