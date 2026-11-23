@@ -64,3 +64,12 @@ class InconelMicrochannelWallFrame:
         if self.ambient_stress_factor <= 0.0:
             violations.append("ambient_stress_factor_non_positive")
         return (len(violations) == 0, violations)
+
+    def compute_normalized_deviation(self) -> float:
+        delta_a = abs(self.fuel_supercritical_mpa - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
+        delta_b = abs(self.mach_capture_area_ratio - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
+        weighted = 0.62 * delta_a + 0.38 * delta_b
+        return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
+
+
+@dataclass
