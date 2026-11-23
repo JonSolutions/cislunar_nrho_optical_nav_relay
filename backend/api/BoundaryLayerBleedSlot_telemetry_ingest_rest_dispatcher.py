@@ -168,3 +168,4 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
         mahalanobis_dist = math.sqrt(max(mahalanobis_d2, 0.0))
         self.state_vector.epoch_ms = frame.timestamp_ms
         self.state_vector.state_estimate = [upd_x0, upd_x1, pred_x2, pred_x3]
+        self.state_vector.covariance_diag = [upd_p0, upd_p1, pred_p2, pred_p3]
