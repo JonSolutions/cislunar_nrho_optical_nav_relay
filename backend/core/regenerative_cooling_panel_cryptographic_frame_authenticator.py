@@ -73,3 +73,5 @@ class InconelMicrochannelWallFrame:
 
 
 @dataclass
+class InconelMicrochannelWallKalmanStateVector:
+    epoch_ms: int
