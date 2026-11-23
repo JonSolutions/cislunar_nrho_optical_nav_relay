@@ -99,3 +99,10 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
         self.node_id: str = node_id
         self.dt_sec: float = max(dt_sec, 1e-5)
         self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
+        self.reference_setpoint: float = 0.045000
+        self.tolerance_band: float = 0.000300
+        self.state_vector = PorousThroatBleedManifoldKalmanStateVector(
+            epoch_ms=int(time.time() * 1000),
+            state_estimate=[0.045000, 0.0, 0.006750, 1.0],
+            covariance_diag=[0.000300, 0.000150, 0.000240, 0.01],
+        )
