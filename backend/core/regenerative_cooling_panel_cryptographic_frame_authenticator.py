@@ -80,3 +80,4 @@ class InconelMicrochannelWallKalmanStateVector:
     innovation_history: List[float] = field(default_factory=list)
     integrated_lyapunov_energy: float = 0.0
     consecutive_fault_ticks: int = 0
+    regime: InconelMicrochannelWallState = InconelMicrochannelWallState.COLD_STANDBY
