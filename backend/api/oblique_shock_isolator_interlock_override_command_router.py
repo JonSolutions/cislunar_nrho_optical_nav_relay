@@ -69,3 +69,4 @@ class BilligShockTrainDuctFrame:
         delta_a = abs(self.pre_combustion_shock_x - NOMINAL_BASELINE_A) / max(NOMINAL_BASELINE_A, 1e-9)
         delta_b = abs(self.damkohler_residence_no - NOMINAL_BASELINE_B) / max(NOMINAL_BASELINE_B, 1e-9)
         weighted = 0.62 * delta_a + 0.38 * delta_b
+        return round(weighted * (1.0 + 0.25 * self.harmonic_distortion_ratio), 8)
