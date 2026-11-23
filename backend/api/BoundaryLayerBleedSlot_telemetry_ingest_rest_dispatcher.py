@@ -113,3 +113,4 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
     def evaluate_governing_law(self, frame: PorousThroatBleedManifoldFrame) -> Dict[str, float]:
         primary_signal = float(frame.displacement_thick_mm)
         secondary_signal = float(frame.mass_bleed_fraction)
+        coupled_signal = float(frame.fuel_supercritical_mpa)
