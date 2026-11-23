@@ -57,3 +57,10 @@ class InconelMicrochannelWallFrame:
             violations.append("timestamp_ms_must_be_positive")
         if math.isnan(self.fuel_supercritical_mpa) or math.isinf(self.fuel_supercritical_mpa):
             violations.append("fuel_supercritical_mpa_non_finite")
+        if math.isnan(self.coking_deposit_um) or math.isinf(self.coking_deposit_um):
+            violations.append("coking_deposit_um_non_finite")
+        if self.harmonic_distortion_ratio < 0.0 or self.harmonic_distortion_ratio > 1.0:
+            violations.append("harmonic_distortion_out_of_unit_interval")
+        if self.ambient_stress_factor <= 0.0:
+            violations.append("ambient_stress_factor_non_positive")
+        return (len(violations) == 0, violations)
