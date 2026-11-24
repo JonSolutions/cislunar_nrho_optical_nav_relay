@@ -93,3 +93,9 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
     """
     Production solver for BilligShockTrainDuct (PrimaryEquilibriumSolver).
     Enforces BilligShockTrainCorrelation (coeff=1.4000e+00)
+    """
+
+    def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
+        self.node_id: str = node_id
+        self.dt_sec: float = max(dt_sec, 1e-5)
+        self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
