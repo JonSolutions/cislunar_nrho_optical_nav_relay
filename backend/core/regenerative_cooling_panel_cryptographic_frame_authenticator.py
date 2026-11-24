@@ -97,3 +97,4 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
 
     def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
         self.node_id: str = node_id
+        self.dt_sec: float = max(dt_sec, 1e-5)
