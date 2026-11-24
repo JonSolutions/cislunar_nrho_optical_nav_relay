@@ -78,3 +78,16 @@ class BilligShockTrainDuctKalmanStateVector:
     state_estimate: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0, 0.0])
     covariance_diag: List[float] = field(default_factory=lambda: [1.0, 1.0, 1.0, 1.0])
     innovation_history: List[float] = field(default_factory=list)
+    integrated_lyapunov_energy: float = 0.0
+    consecutive_fault_ticks: int = 0
+    regime: BilligShockTrainDuctState = BilligShockTrainDuctState.COLD_STANDBY
+
+    def covariance_trace(self) -> float:
+        return float(sum(max(c, 1e-12) for c in self.covariance_diag))
+
+    def spectral_condition_proxy(self) -> float:
+        clean = [max(c, 1e-12) for c in self.covariance_diag]
+        return float(max(clean) / min(clean))
+
+class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
+    """
