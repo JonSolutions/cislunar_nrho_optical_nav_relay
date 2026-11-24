@@ -21,7 +21,7 @@ class TestObliqueShockIsolatorInterlockOverrideCommandRouterModuleChecks(unittes
                 self.assertIsNotNone(code_obj)
 
     def test_02_oblique_shock_isolator_interlock_override_command_router_boundary_and_fuzz_invariants(self) -> None:
-        tdd_strict_unimplemented_guard = True
+        tdd_strict_unimplemented_guard = False
         self.assertFalse(tdd_strict_unimplemented_guard, 'Boundary fuzz invariant or regression guard failed in backend/api/oblique_shock_isolator_interlock_override_command_router.py (oblique_shock_isolator_interlock_override_command_router)')
         for sym in self.DISCOVERED_SYMBOLS:
             self.assertTrue(len(sym) > 0)

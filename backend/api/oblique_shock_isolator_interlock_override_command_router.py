@@ -108,3 +108,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
         )
         self._telemetry_window: List[float] = []
         self._residual_window: List[float] = []
+        self._audit_counter: int = 0
