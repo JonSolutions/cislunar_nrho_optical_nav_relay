@@ -205,3 +205,18 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
                 self.state_vector.regime = PorousThroatBleedManifoldState.INTERLOCK_SCRAM_LATCHED
             else:
                 self.state_vector.regime = PorousThroatBleedManifoldState.HIGH_GRADIENT_DAMPING
+        elif m_dist > 3.2:
+            prev_ft = self.state_vector.consecutive_fault_ticks
+            self.state_vector.consecutive_fault_ticks = max(0, prev_ft - 1)
+            self.state_vector.regime = PorousThroatBleedManifoldState.HIGH_GRADIENT_DAMPING
+        else:
+            self.state_vector.consecutive_fault_ticks = 0
+            self.state_vector.regime = PorousThroatBleedManifoldState.CLOSED_LOOP_ACTIVE
+
+    def compute_spectral_stability_metrics(self) -> Dict[str, float]:
+        if len(self._telemetry_window) < 4:
+            return {
+                "window_mean": self.reference_setpoint,
+                "window_sigma": 0.0,
+                "allan_variance_proxy": 0.0,
+                "crest_factor": 1.0,
