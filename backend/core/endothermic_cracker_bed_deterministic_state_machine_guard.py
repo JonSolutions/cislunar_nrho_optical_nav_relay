@@ -153,3 +153,12 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         pred_p0 = p0 + self.dt_sec * p1 + q_proc
         pred_p1 = p1 * 0.94 + q_proc
         pred_p2 = p2 * 0.95 + q_proc
+        pred_p3 = p3 * 0.98 + q_proc * 0.1
+        measurement_z = float(frame.jp7_conversion_frac)
+        r_noise = max(self.tolerance_band * (1.0 + frame.harmonic_distortion_ratio), 1e-6)
+        innovation_y = measurement_z - pred_x0
+        innovation_s = pred_p0 + r_noise
+        kalman_gain_k0 = pred_p0 / innovation_s
+        kalman_gain_k1 = (0.25 * pred_p1) / innovation_s
+        upd_x0 = pred_x0 + kalman_gain_k0 * innovation_y
+        upd_x1 = pred_x1 + kalman_gain_k1 * innovation_y
