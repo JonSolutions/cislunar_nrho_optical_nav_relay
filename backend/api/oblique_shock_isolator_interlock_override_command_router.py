@@ -122,3 +122,13 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
             + 0.18 * coupled_signal * non_linear_term
             + PRIMARY_LAW_COEFF * (secondary_signal ** 2)
         )
+        jacobian_determinant = 1.0 + self.gain_alpha * (1.0 - math.tanh(norm_p - 1.0) ** 2)
+        damping_ratio = 1.0 / (1.0 + frame.harmonic_distortion_ratio * frame.ambient_stress_factor)
+        return {
+            "normalized_primary": round(norm_p, 8),
+            "normalized_secondary": round(norm_s, 8),
+            "non_linear_coupling": round(non_linear_term, 8),
+            "helmholtz_energy": round(helmholtz_free_energy, 8),
+            "jacobian_determinant": round(jacobian_determinant, 8),
+            "effective_damping_ratio": round(damping_ratio, 8),
+        }
