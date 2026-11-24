@@ -101,3 +101,8 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
         self.reference_setpoint: float = 125.000000
         self.tolerance_band: float = 0.004400
+        self.state_vector = ByzantineTriplexBusKalmanStateVector(
+            epoch_ms=int(time.time() * 1000),
+            state_estimate=[125.000000, 0.0, 18.750000, 1.0],
+            covariance_diag=[0.004400, 0.002200, 0.003520, 0.01],
+        )
