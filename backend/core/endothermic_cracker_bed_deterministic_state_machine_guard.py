@@ -150,3 +150,5 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         pred_x2 = 0.88 * x2 + 0.12 * frame.radical_oh_ppm
         pred_x3 = max(0.05, min(2.5, x3 * (1.0 - 0.01 * frame.harmonic_distortion_ratio)))
         q_proc = max(self.tolerance_band * 0.05, 1e-7)
+        pred_p0 = p0 + self.dt_sec * p1 + q_proc
+        pred_p1 = p1 * 0.94 + q_proc
