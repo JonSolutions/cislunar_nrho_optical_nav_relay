@@ -106,3 +106,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
             state_estimate=[28.400000, 0.0, 4.260000, 1.0],
             covariance_diag=[0.004100, 0.002050, 0.003280, 0.01],
         )
+        self._telemetry_window: List[float] = []
