@@ -101,3 +101,8 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
         self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
         self.reference_setpoint: float = 6.850000
         self.tolerance_band: float = 0.001700
+        self.state_vector = InconelMicrochannelWallKalmanStateVector(
+            epoch_ms=int(time.time() * 1000),
+            state_estimate=[6.850000, 0.0, 1.027500, 1.0],
+            covariance_diag=[0.001700, 0.000850, 0.001360, 0.01],
+        )
