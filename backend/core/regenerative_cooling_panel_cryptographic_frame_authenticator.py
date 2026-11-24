@@ -81,3 +81,6 @@ class InconelMicrochannelWallKalmanStateVector:
     integrated_lyapunov_energy: float = 0.0
     consecutive_fault_ticks: int = 0
     regime: InconelMicrochannelWallState = InconelMicrochannelWallState.COLD_STANDBY
+
+    def covariance_trace(self) -> float:
+        return float(sum(max(c, 1e-12) for c in self.covariance_diag))
