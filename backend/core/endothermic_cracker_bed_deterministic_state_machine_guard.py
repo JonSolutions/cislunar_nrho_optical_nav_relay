@@ -152,3 +152,4 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         q_proc = max(self.tolerance_band * 0.05, 1e-7)
         pred_p0 = p0 + self.dt_sec * p1 + q_proc
         pred_p1 = p1 * 0.94 + q_proc
+        pred_p2 = p2 * 0.95 + q_proc
