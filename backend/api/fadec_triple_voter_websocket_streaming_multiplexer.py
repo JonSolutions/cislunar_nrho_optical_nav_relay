@@ -87,3 +87,15 @@ class ByzantineTriplexBusKalmanStateVector:
 
     def spectral_condition_proxy(self) -> float:
         clean = [max(c, 1e-12) for c in self.covariance_diag]
+        return float(max(clean) / min(clean))
+
+class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
+    """
+    Production solver for ByzantineTriplexBus (PrimaryEquilibriumSolver).
+    Enforces ObliqueShockRankineHugoniot (coeff=6.8000e+00)
+    """
+
+    def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
+        self.node_id: str = node_id
+        self.dt_sec: float = max(dt_sec, 1e-5)
+        self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
