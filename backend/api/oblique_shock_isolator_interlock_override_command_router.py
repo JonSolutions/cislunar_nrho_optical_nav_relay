@@ -132,3 +132,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
             "jacobian_determinant": round(jacobian_determinant, 8),
             "effective_damping_ratio": round(damping_ratio, 8),
         }
+
