@@ -116,3 +116,4 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         coupled_signal = float(frame.jp7_conversion_frac)
         norm_p = primary_signal / max(abs(self.reference_setpoint), 1e-9)
         norm_s = secondary_signal / max(abs(self.reference_setpoint * 0.25 + 1.0), 1e-9)
+        non_linear_term = math.tanh(norm_p - 1.0) * math.exp(-0.15 * abs(norm_s))
