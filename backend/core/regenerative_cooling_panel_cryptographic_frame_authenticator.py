@@ -121,3 +121,5 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
             0.5 * (primary_signal - self.reference_setpoint) ** 2
             + 0.18 * coupled_signal * non_linear_term
             + PRIMARY_LAW_COEFF * (secondary_signal ** 2)
+        )
+        jacobian_determinant = 1.0 + self.gain_alpha * (1.0 - math.tanh(norm_p - 1.0) ** 2)
