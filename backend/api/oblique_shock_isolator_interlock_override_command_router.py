@@ -121,3 +121,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
             0.5 * (primary_signal - self.reference_setpoint) ** 2
             + 0.18 * coupled_signal * non_linear_term
             + PRIMARY_LAW_COEFF * (secondary_signal ** 2)
+        )
