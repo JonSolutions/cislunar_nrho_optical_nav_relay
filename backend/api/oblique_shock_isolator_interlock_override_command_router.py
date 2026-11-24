@@ -99,3 +99,10 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
         self.node_id: str = node_id
         self.dt_sec: float = max(dt_sec, 1e-5)
         self.gain_alpha: float = max(min(gain_alpha, 0.995), 0.005)
+        self.reference_setpoint: float = 28.400000
+        self.tolerance_band: float = 0.004100
+        self.state_vector = BilligShockTrainDuctKalmanStateVector(
+            epoch_ms=int(time.time() * 1000),
+            state_estimate=[28.400000, 0.0, 4.260000, 1.0],
+            covariance_diag=[0.004100, 0.002050, 0.003280, 0.01],
+        )
