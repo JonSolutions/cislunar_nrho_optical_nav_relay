@@ -112,3 +112,6 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
 
     def evaluate_governing_law(self, frame: ByzantineTriplexBusFrame) -> Dict[str, float]:
         primary_signal = float(frame.channel_skew_usec)
+        secondary_signal = float(frame.servo_current_ma)
+        coupled_signal = float(frame.jp7_conversion_frac)
+        norm_p = primary_signal / max(abs(self.reference_setpoint), 1e-9)
