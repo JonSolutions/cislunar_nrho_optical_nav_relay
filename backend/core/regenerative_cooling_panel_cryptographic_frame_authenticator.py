@@ -106,3 +106,4 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
             state_estimate=[6.850000, 0.0, 1.027500, 1.0],
             covariance_diag=[0.001700, 0.000850, 0.001360, 0.01],
         )
+        self._telemetry_window: List[float] = []
