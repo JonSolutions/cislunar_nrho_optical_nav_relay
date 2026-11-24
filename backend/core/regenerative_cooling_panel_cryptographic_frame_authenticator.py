@@ -91,3 +91,9 @@ class InconelMicrochannelWallKalmanStateVector:
 
 class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
     """
+    Production solver for InconelMicrochannelWall (PrimaryEquilibriumSolver).
+    Enforces RayleighThermalChokingCriterion (coeff=3.8500e-01)
+    """
+
+    def __init__(self, node_id: str, dt_sec: float = 0.005, gain_alpha: float = 0.42) -> None:
+        self.node_id: str = node_id
