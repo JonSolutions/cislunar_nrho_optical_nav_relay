@@ -107,3 +107,10 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
             covariance_diag=[0.001700, 0.000850, 0.001360, 0.01],
         )
         self._telemetry_window: List[float] = []
+        self._residual_window: List[float] = []
+        self._audit_counter: int = 0
+
+    def evaluate_governing_law(self, frame: InconelMicrochannelWallFrame) -> Dict[str, float]:
+        primary_signal = float(frame.fuel_supercritical_mpa)
+        secondary_signal = float(frame.coking_deposit_um)
+        coupled_signal = float(frame.mach_capture_area_ratio)
