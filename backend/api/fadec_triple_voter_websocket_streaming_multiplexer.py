@@ -106,3 +106,9 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
             state_estimate=[125.000000, 0.0, 18.750000, 1.0],
             covariance_diag=[0.004400, 0.002200, 0.003520, 0.01],
         )
+        self._telemetry_window: List[float] = []
+        self._residual_window: List[float] = []
+        self._audit_counter: int = 0
+
+    def evaluate_governing_law(self, frame: ByzantineTriplexBusFrame) -> Dict[str, float]:
+        primary_signal = float(frame.channel_skew_usec)
