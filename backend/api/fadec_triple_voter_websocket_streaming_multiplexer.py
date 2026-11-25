@@ -164,3 +164,8 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         upd_x1 = pred_x1 + kalman_gain_k1 * innovation_y
         upd_p0 = max((1.0 - kalman_gain_k0) * pred_p0, 1e-12)
         upd_p1 = max((1.0 - 0.25 * kalman_gain_k1) * pred_p1, 1e-12)
+        mahalanobis_d2 = (innovation_y ** 2) / max(innovation_s, 1e-12)
+        mahalanobis_dist = math.sqrt(max(mahalanobis_d2, 0.0))
+        self.state_vector.epoch_ms = frame.timestamp_ms
+        self.state_vector.state_estimate = [upd_x0, upd_x1, pred_x2, pred_x3]
+        self.state_vector.covariance_diag = [upd_p0, upd_p1, pred_p2, pred_p3]
