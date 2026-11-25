@@ -143,3 +143,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
                 "errors": errors,
                 "regime": self.state_vector.regime.value,
             }
+        x0, x1, x2, x3 = self.state_vector.state_estimate
