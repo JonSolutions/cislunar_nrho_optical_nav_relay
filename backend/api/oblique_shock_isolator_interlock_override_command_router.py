@@ -156,3 +156,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
         pred_p3 = p3 * 0.98 + q_proc * 0.1
         measurement_z = float(frame.pre_combustion_shock_x)
         r_noise = max(self.tolerance_band * (1.0 + frame.harmonic_distortion_ratio), 1e-6)
+        innovation_y = measurement_z - pred_x0
