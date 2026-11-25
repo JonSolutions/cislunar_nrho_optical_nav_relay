@@ -133,3 +133,8 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
             "effective_damping_ratio": round(damping_ratio, 8),
         }
 
+    def step_extended_kalman_filter(self, frame: BilligShockTrainDuctFrame) -> Dict[str, Any]:
+        is_valid, errors = frame.validate_physical_bounds()
+        if not is_valid:
+            self.state_vector.consecutive_fault_ticks += 1
+            self.state_vector.regime = BilligShockTrainDuctState.DEGRADED_FALLBACK
