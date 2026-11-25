@@ -180,3 +180,4 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
             self._residual_window.pop(0)
         self.state_vector.integrated_lyapunov_energy = round(
             0.92 * self.state_vector.integrated_lyapunov_energy + 0.08 * mahalanobis_d2, 8
+        )
