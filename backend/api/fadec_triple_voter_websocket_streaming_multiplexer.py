@@ -146,3 +146,4 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         x0, x1, x2, x3 = self.state_vector.state_estimate
         p0, p1, p2, p3 = self.state_vector.covariance_diag
         pred_x0 = x0 + self.dt_sec * x1
+        pred_x1 = 0.96 * x1 - 0.12 * (x0 - self.reference_setpoint)
