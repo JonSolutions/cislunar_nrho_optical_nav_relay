@@ -224,3 +224,5 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
             }
         mean_val = statistics.fmean(self._telemetry_window)
         sigma_val = statistics.pstdev(self._telemetry_window)
+        diffs = [
+            self._telemetry_window[i] - self._telemetry_window[i - 1]
