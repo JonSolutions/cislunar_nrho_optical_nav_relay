@@ -183,3 +183,17 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         )
         self._transition_operational_regime(mahalanobis_dist, frame.redundant_channel_ok)
         self._audit_counter += 1
+        return {
+            "status": "CONVERGED",
+            "node_id": self.node_id,
+            "primary_metric": "channel_skew_usec",
+            "secondary_metric": "servo_current_ma",
+            "posterior_estimate": round(upd_x0, 7),
+            "posterior_velocity": round(upd_x1, 7),
+            "innovation_residual": round(innovation_y, 7),
+            "kalman_gain": round(kalman_gain_k0, 7),
+            "mahalanobis_distance": round(mahalanobis_dist, 7),
+            "covariance_trace": round(self.state_vector.covariance_trace(), 8),
+            "regime": self.state_vector.regime.value,
+            "audit_seq": self._audit_counter,
+        }
