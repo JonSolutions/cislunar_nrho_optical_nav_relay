@@ -135,3 +135,12 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
 
     def step_extended_kalman_filter(self, frame: ByzantineTriplexBusFrame) -> Dict[str, Any]:
         is_valid, errors = frame.validate_physical_bounds()
+        if not is_valid:
+            self.state_vector.consecutive_fault_ticks += 1
+            self.state_vector.regime = ByzantineTriplexBusState.DEGRADED_FALLBACK
+            return {
+                "status": "REJECTED_FRAME",
+                "errors": errors,
+                "regime": self.state_vector.regime.value,
+            }
+        x0, x1, x2, x3 = self.state_vector.state_estimate
