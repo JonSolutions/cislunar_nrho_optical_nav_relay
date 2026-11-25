@@ -169,3 +169,9 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         self.state_vector.epoch_ms = frame.timestamp_ms
         self.state_vector.state_estimate = [upd_x0, upd_x1, pred_x2, pred_x3]
         self.state_vector.covariance_diag = [upd_p0, upd_p1, pred_p2, pred_p3]
+        self.state_vector.innovation_history.append(round(innovation_y, 8))
+        if len(self.state_vector.innovation_history) > 128:
+            self.state_vector.innovation_history.pop(0)
+        self._telemetry_window.append(measurement_z)
+        if len(self._telemetry_window) > 128:
+            self._telemetry_window.pop(0)
