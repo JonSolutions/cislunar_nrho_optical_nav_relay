@@ -162,3 +162,4 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM13:
         kalman_gain_k1 = (0.25 * pred_p1) / innovation_s
         upd_x0 = pred_x0 + kalman_gain_k0 * innovation_y
         upd_x1 = pred_x1 + kalman_gain_k1 * innovation_y
+        upd_p0 = max((1.0 - kalman_gain_k0) * pred_p0, 1e-12)
