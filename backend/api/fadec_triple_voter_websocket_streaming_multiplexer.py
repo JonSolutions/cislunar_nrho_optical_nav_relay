@@ -175,3 +175,4 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         self._telemetry_window.append(measurement_z)
         if len(self._telemetry_window) > 128:
             self._telemetry_window.pop(0)
+        self._residual_window.append(mahalanobis_dist)
