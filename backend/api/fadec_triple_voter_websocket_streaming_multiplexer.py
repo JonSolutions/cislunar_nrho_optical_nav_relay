@@ -133,3 +133,5 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
             "effective_damping_ratio": round(damping_ratio, 8),
         }
 
+    def step_extended_kalman_filter(self, frame: ByzantineTriplexBusFrame) -> Dict[str, Any]:
+        is_valid, errors = frame.validate_physical_bounds()
