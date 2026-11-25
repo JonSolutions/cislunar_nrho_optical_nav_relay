@@ -222,3 +222,5 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
                 "crest_factor": 1.0,
                 "lyapunov_exponent_est": -0.15,
             }
+        mean_val = statistics.fmean(self._telemetry_window)
+        sigma_val = statistics.pstdev(self._telemetry_window)
