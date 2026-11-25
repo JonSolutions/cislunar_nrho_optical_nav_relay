@@ -220,3 +220,5 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
                 "window_sigma": 0.0,
                 "allan_variance_proxy": 0.0,
                 "crest_factor": 1.0,
+                "lyapunov_exponent_est": -0.15,
+            }
