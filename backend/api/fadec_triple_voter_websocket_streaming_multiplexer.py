@@ -151,3 +151,8 @@ class ByzantineTriplexBusPrimaryEquilibriumSolverM12:
         pred_x3 = max(0.05, min(2.5, x3 * (1.0 - 0.01 * frame.harmonic_distortion_ratio)))
         q_proc = max(self.tolerance_band * 0.05, 1e-7)
         pred_p0 = p0 + self.dt_sec * p1 + q_proc
+        pred_p1 = p1 * 0.94 + q_proc
+        pred_p2 = p2 * 0.95 + q_proc
+        pred_p3 = p3 * 0.98 + q_proc * 0.1
+        measurement_z = float(frame.channel_skew_usec)
+        r_noise = max(self.tolerance_band * (1.0 + frame.harmonic_distortion_ratio), 1e-6)
