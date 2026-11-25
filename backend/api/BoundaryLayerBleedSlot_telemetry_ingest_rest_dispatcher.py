@@ -227,3 +227,5 @@ class PorousThroatBleedManifoldPrimaryEquilibriumSolverM11:
         diffs = [
             self._telemetry_window[i] - self._telemetry_window[i - 1]
             for i in range(1, len(self._telemetry_window))
+        ]
+        allan_var = sum(d * d for d in diffs) / max(2.0 * len(diffs), 1.0)
